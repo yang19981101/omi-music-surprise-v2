@@ -43,13 +43,13 @@
     ];
 
     const musics = [
-        "day1.mp3.mp3",
-        "day2.mp3.mp3",
-        "day3.mp3.mp3",
-        "day4.mp3.mp3",
-        "day5.mp3.mp3",
-        "day6.mp3.mp3",
-        "day7.mp3.mp3"
+        "https://docs.google.com/uc?export=download&id=14E1cz--hxUEwUg-ZayEQDHb3oZeUJash",
+        "https://docs.google.com/uc?export=download&id=18AqFM3Puh0j3ekbW0c0zYxPHNGTX0reP",
+        "https://docs.google.com/uc?export=download&id=1RMNbvwKUmktherC0Nf-xSiaAutI4gOvs",
+        "https://docs.google.com/uc?export=download&id=1gN8XRAIK3GSSx9tjYfiEn-f4SrsPgjcz",
+        "https://docs.google.com/uc?export=download&id=1kNYC6osjmlp7VDUOh87L5hTbaWgmsp7W",
+        "https://docs.google.com/uc?export=download&id=1oBwFe6VmOuvuETcaJBQF0BFkoDZH2uO5",
+        "https://docs.google.com/uc?export=download&id=1sYGkDeI4Jorqfjx0aVSHgnbPOyc7U5NZ"
     ];
 
     // 隨機語錄不重複7天
@@ -72,7 +72,7 @@
     localStorage.setItem("last7musics", JSON.stringify(musicHistory));
 
     const audioSrc = document.getElementById("audioSrc");
-    audioSrc.src = `https://raw.githubusercontent.com/yang19981101/omi-music-surprise-v2/main/${musics[musicIdx]}`;
+    audioSrc.src = musics[musicIdx];
     document.getElementById("bgm").load();
 })();
 </script>
