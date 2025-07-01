@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<title>給今天的妳的小驚喜</title>
+<style>
+    body { 
+        font-family: "微軟正黑體", sans-serif; 
+        background-color: #fff3f3; 
+        text-align: center; 
+        padding: 80px 20px; 
+        color: #c2185b; 
+    }
+    h1 { font-size: 36px; margin-bottom: 20px; }
+    p { font-size: 28px; margin-bottom: 40px; }
+    .heart { font-size: 48px; animation: bounce 1.2s infinite; }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+</style>
+</head>
+<body>
+<h1>🎁 今天的妳，辛苦了</h1>
+<p id="message">正在載入溫暖話語…</p>
+<div class="heart">❤️</div>
+
+<audio id="bgm" autoplay loop>
+    <source id="audioSrc" src="" type="audio/mpeg" />
+    你的瀏覽器不支援音樂播放。
+</audio>
+
+<script>
+(() => {
+    const messages = [
+        "今天的妳，是休息天嗎？不管是不是，都想說一聲：妳真的好棒。",
+        "不管今天多忙，都記得偷空對自己說一句：『妳做得很好』。",
+        "這些小小的努力，終究會有人看到，包括我。",
+        "如果今天很累，就放輕鬆點，明天一樣會有陽光等妳。",
+        "即使夜班再晚，也希望有我的一點點陪伴在妳心裡。",
+        "每一滴汗水，每一個夜晚，妳都值得被溫柔對待。",
+        "累了的時候，也請記得妳不是一個人。"
+    ];
+
+    const musics = [
+        "day1.mp3",
+        "day2.mp3",
+        "day3.mp3",
+        "day4.mp3",
+        "day5.mp3",
+        "day6.mp3",
+        "day7.mp3"
+    ];
+
+    // 隨機語錄不重複7天
+    let msgHistory = JSON.parse(localStorage.getItem("last7messages")) || [];
+    let availableMsg = [...Array(messages.length).keys()].filter(i => !msgHistory.includes(i));
+    if(availableMsg.length === 0) { msgHistory = []; availableMsg = [...Array(messages.length).keys()]; }
+    const msgIdx = availableMsg[Math.floor(Math.random() * availableMsg.length)];
+    msgHistory.push(msgIdx);
+    if(msgHistory.length > 7) msgHistory.shift();
+    localStorage.setItem("last7messages", JSON.stringify(msgHistory));
+    document.getElementById("message").innerText = messages[msgIdx];
+
+    // 隨機音樂不重複7天
+    let musicHistory = JSON.parse(localStorage.getItem("last7musics")) || [];
+    let availableMusic = [...Array(musics.length).keys()].filter(i => !musicHistory.includes(i));
+    if(availableMusic.length === 0) { musicHistory = []; availableMusic = [...Array(musics.length).keys()]; }
+    const musicIdx = availableMusic[Math.floor(Math.random() * availableMusic.length)];
+    musicHistory.push(musicIdx);
+    if(musicHistory.length > 7) musicHistory.shift();
+    localStorage.setItem("last7musics", JSON.stringify(musicHistory));
+
+    const audioSrc = document.getElementById("audioSrc");
+    audioSrc.src = `https://raw.githubusercontent.com/yang19981101/omi-music-surprise-v2/main/${musics[musicIdx]}`;
+    document.getElementById("bgm").load();
+})();
+</script>
+
+</body>
+</html>
